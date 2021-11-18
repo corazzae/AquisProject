@@ -27,7 +27,6 @@ std::string getKeyValue(std::string line, std::string key) {
 
 std::vector<std::string> generateReport(std::vector<std::unique_ptr<Security>> const& securities) {
     std::vector<std::string> report;
-    std::vector<uint64_t> prices; //only for testging
 
     for (auto& security : securities) {
         std::string securityAggregate;
@@ -42,8 +41,6 @@ std::vector<std::string> generateReport(std::vector<std::unique_ptr<Security>> c
 
         std::vector<std::unique_ptr<Order>> const& orders = security->getOrders();
         for (auto& order : orders) {
-
-            prices.push_back(order->m_price);
 
             if (order->m_side == true) {//BUY
                 totalBuyCount++;
@@ -79,14 +76,6 @@ std::vector<std::string> generateReport(std::vector<std::unique_ptr<Security>> c
 
     }
 
-    std::ofstream file;
-    file.open("prices.txt");
-
-    for (auto price : prices) {
-        file << price << "\n";
-    }
-    file.close();
-
     return report;
 }
 
@@ -103,19 +92,9 @@ std::vector<std::unique_ptr<Security>> parseMarketData(std::string path) {
         std::string value = getKeyValue(line, "\"msgType_\"");
         if (value == "8") { //Reference data
             auto security = std::make_unique<Security>();
-            //std::cout << getKeyValue(line, "\"securityId_\"");
             security->setSecurityID(std::stoi(getKeyValue(line, "\"securityId_\"")));
-            security->setUMTF(getKeyValue(line, "\"umtf_\""));
             security->setISIN(getKeyValue(line, "\"isin_\""));
             security->setCurrency(getKeyValue(line, "\"currency_\""));
-            security->setMIC(getKeyValue(line, "\"isin_\""));
-            security->setTickTableID(std::stoi(getKeyValue(line, "\"tickTableId_\"")));
-            security->setClosingEnabled(std::stoi(getKeyValue(line, "\"closingEnabled_\"")));
-            security->setTestStock(std::stoi(getKeyValue(line, "\"testStock_\"")));
-            security->setIlliquid(std::stoi(getKeyValue(line, "\"illiquid\"")));
-            security->setSecurityID(std::stoi(getKeyValue(line, "\"securityId_\"")));
-            security->setLive(std::stoi(getKeyValue(line, "\"live_\"")));
-            security->setaodEnabled(std::stoi(getKeyValue(line, "\"aodEnabled_\"")));
 
             securities.emplace_back(std::move(security));
         }

@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/AquisReport/newReport.txt
+/AquisReport/pretrade.txt
+/AquisReport/prices.txt
