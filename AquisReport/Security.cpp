@@ -1,7 +1,7 @@
 #include "Security.h"
 #include "Security.h"
 
-void Security::addOrder(bool side, uint16_t quantity, long long price, uint16_t orderID)
+void Security::addOrder(bool side, uint16_t quantity, uint64_t price, uint16_t orderID)
 {
 	m_orderList.emplace_back(std::make_unique<Order>(side, quantity, price, orderID));
 }

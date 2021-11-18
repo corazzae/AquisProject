@@ -37,7 +37,7 @@ private:
 
 public:
 
-	void addOrder(bool side, uint16_t quantity, long long price, uint16_t orderID);
+	void addOrder(bool side, uint16_t quantity, uint64_t price, uint16_t orderID);
 	std::vector<std::unique_ptr<Order>> const& getOrders();
 
 	void setSecurityID(uint16_t securityID);

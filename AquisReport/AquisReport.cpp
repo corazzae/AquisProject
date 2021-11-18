@@ -113,7 +113,7 @@ std::vector<std::unique_ptr<Security>> parseMarketData(std::string path) {
                     side = false;
                 }
                 uint16_t quantity = std::stoi(getKeyValue(line, "\"quantity_\""));
-                long long price = std::stoll(getKeyValue(line, "\"price_\""));
+                uint64_t price = std::stoull(getKeyValue(line, "\"price_\""));
                 uint16_t orderID = std::stoi(getKeyValue(line, "\"orderId_\""));
                 (*it)->addOrder(side, quantity, price, orderID);
             }
